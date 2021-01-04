@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mtrx-config
+  labels:
+    app: mtrx
+data:
+  postgres_user: postgres
+  postgres_port: "5432"
+  postgres_db: mtrx_db
+  postgres_host: pgdb-postgresql
+  url: "jdbc:postgresql://pgdb-postgresql:5432/mtrx_db"
