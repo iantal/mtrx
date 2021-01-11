@@ -18,10 +18,12 @@ public class VulnerabilitiesController {
     private final VulnerabilityService vulnerabilityService;
 
     @PostMapping
-    public ResponseEntity<VulnerabilityDto> addVulnerability(@RequestBody VulnerabilityDto vulnerability) {
-        log.info("Adding vulnerability to db");
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(vulnerabilityService.save(vulnerability));
+    public ResponseEntity<VulnerabilityDto> addAllVulnerabilities(@RequestBody List<VulnerabilityDto> vulnerabilities) {
+        log.info("Adding all vulnerabilities to db");
+        for (VulnerabilityDto dto : vulnerabilities) {
+            vulnerabilityService.save(dto);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
     @GetMapping
