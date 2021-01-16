@@ -1,5 +1,6 @@
 package io.seclens.mtrx.controller;
 
+import io.seclens.mtrx.client.LuaClient;
 import io.seclens.mtrx.data.dto.VulnerabilityDto;
 import io.seclens.mtrx.service.VulnerabilityService;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class VulnerabilitiesController {
     private final VulnerabilityService vulnerabilityService;
+    private final LuaClient luaClient;
 
     @PostMapping
     public ResponseEntity<VulnerabilityDto> addAllVulnerabilities(@RequestBody List<VulnerabilityDto> vulnerabilities) {
@@ -23,6 +25,7 @@ public class VulnerabilitiesController {
         for (VulnerabilityDto dto : vulnerabilities) {
             vulnerabilityService.save(dto);
         }
+        luaClient.getVulnerableLibraries(vulnerabilities);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
