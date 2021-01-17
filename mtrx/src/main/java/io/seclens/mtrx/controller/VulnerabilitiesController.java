@@ -20,7 +20,9 @@ public class VulnerabilitiesController {
     private final LuaClient luaClient;
 
     @PostMapping
-    public ResponseEntity<VulnerabilityDto> addAllVulnerabilities(@RequestBody List<VulnerabilityDto> vulnerabilities) {
+    public ResponseEntity<VulnerabilityDto> addAllVulnerabilities(
+            @RequestBody List<VulnerabilityDto> vulnerabilities) {
+
         log.info("Adding all vulnerabilities to db");
         for (VulnerabilityDto dto : vulnerabilities) {
             vulnerabilityService.save(dto);
@@ -37,4 +39,12 @@ public class VulnerabilitiesController {
                 .body(vulnerabilityService.getAllVulnerabilities());
     }
 
+    @GetMapping("/{projectId}/{commit}")
+    public ResponseEntity<List<VulnerabilityDto>> getVulnerabilities(
+            @PathVariable String projectId, @PathVariable String commit) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(vulnerabilityService.getVulnerabilities(projectId, commit));
+    }
 }

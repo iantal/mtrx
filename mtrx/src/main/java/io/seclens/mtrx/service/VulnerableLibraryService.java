@@ -36,6 +36,9 @@ public class VulnerableLibraryService {
 
     @Transactional
     public List<VulnerableLibraryDto> getVulnerableLibraries(String projectId, String commit) {
-        return new ArrayList<>();
+        return vulnerableLibraryRepository.findByProjectIdAndCommit(projectId, commit)
+                .stream()
+                .map(vulnerableLibraryMapper::fromVulnerableLibrary)
+                .collect(toList());
     }
 }

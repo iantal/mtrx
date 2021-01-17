@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mtrx
-          image: localhost:5000/mtrx:v1.1.121
+          image: localhost:5000/mtrx:v1.1.125
           imagePullPolicy: Always
           ports:
             - containerPort: 8012
