@@ -16,7 +16,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -41,7 +43,7 @@ public class LuaClient {
         }
         String projectId = vulnerabilities.get(0).getProjectId();
         String commit = vulnerabilities.get(0).getCommit();
-        List<String> libs = new ArrayList<>();
+        Set<String> libs = new HashSet<>();
         log.info("Calling lua for project {} and commit {}", projectId, commit);
 
         for (VulnerabilityDto vulnerability : vulnerabilities) {
