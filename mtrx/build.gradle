@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.4.1'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'idea'
+	id 'com.google.protobuf' version '0.8.14'
 }
 
 group = 'io.seclens'
@@ -18,15 +20,49 @@ repositories {
 	mavenCentral()
 }
 
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.10.0"
+	}
+	plugins {
+		grpc {
+			artifact = 'io.grpc:protoc-gen-grpc-java:1.24.0'
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {}
+		}
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+
+	implementation 'io.grpc:grpc-netty-shaded:1.24.0'
+	implementation 'io.grpc:grpc-protobuf:1.24.0'
+	implementation 'io.grpc:grpc-stub:1.24.0'
+	implementation "io.grpc:grpc-services:1.24.0"   // reflection
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+// if you have source imports issues, add the below
+sourceSets.main.java.srcDir new File(buildDir, 'generated/source')
+idea {
+	module {
+		// Marks the already(!) added srcDir as "generated"
+		generatedSourceDirs += file('build/generated/source')
+	}
 }
