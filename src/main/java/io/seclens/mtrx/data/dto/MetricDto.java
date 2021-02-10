@@ -8,6 +8,6 @@ import lombok.Data;
 public class MetricDto {
     private String file;
     private String name;
-    private String category = "Security";
+    private final String category = "Security";
     private int value;
 }
