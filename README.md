@@ -34,6 +34,7 @@ The aggregated data is presented as a JSON using the following template:
       * HIGH = 8
       * MEDIUM = 4 
       * LOW = 2
+    * specific CVE (value is populated based on severity)
     
 * category: is always set to `Security`
 * value: represents the metric value as an integer
