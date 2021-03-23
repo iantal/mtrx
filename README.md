@@ -1,11 +1,20 @@
 # MTRX - Metrics service
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+
 MTRX is a microservice that was designed to collect and aggregate analysis data coming from
 other microservices. 
 
-![](docs/flow-bg.png)
+## Prerequisites:
+- kind
+- docker
+- k8s
+- k9s (optional)
 
 ## How it works?
+
+
+![](docs/flow-bg.png)
 
 MTRX is receiving analysis data from [ODC](https://github.com/iantal/odc) when the 
 analysis in complete. Then it calls [LUA](https://github.com/iantal/lua) via GRPC for the vulnerable libraries to obtain the
@@ -38,10 +47,4 @@ The aggregated data is presented as a JSON using the following template:
     
 * category: is always set to `Security`
 * value: represents the metric value as an integer
-
-## Prerequisites:
-- kind
-- docker
-- k8s
-- k9s (optional)
 
