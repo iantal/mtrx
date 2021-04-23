@@ -14,9 +14,11 @@ spec:
       labels:
         app: mtrx
     spec:
+      imagePullSecrets:
+        - name: dockerregistrykey
       containers:
         - name: mtrx
-          image: localhost:5000/mtrx:v1.2.0
+          image: {{ .Values.registry }}:{{ .Values.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: 8012
